@@ -1,5 +1,9 @@
-version: 1.0.0
+version: 1.1.0
 history:
+  1.1.0:
+    date: '2020-12-23'
+    title: 'Min/Max'
+    description: 'Add min/max validation.'
   1.0.0:
     date: '2020-12-11'
     title: 'First version.'

@@ -1,4 +1,5 @@
 <?php
+// Update this from other Mac.
 class PluginValidateDouble{
   private $i18n = null;
   function __construct() {
@@ -8,15 +9,23 @@ class PluginValidateDouble{
   }
   public function validate_double($field, $form, $data = array()){
     if(wfArray::get($form, "items/$field/is_valid") && strlen(wfArray::get($form, "items/$field/post_value"))){ // Only if valid and has data.
+      wfPlugin::includeonce('wf/array');
+      $data = new PluginWfArray($data);
       if (!$this->is_double(wfArray::get($form, "items/$field/post_value"), $data)) {
         $form = wfArray::set($form, "items/$field/is_valid", false);
         $form = wfArray::set($form, "items/$field/errors/", $this->i18n->translateFromTheme('?label is not a double!', array('?label' => wfArray::get($form, "items/$field/label"))));
       }elseif(!$this->check_decimals(wfArray::get($form, "items/$field/post_value"), $data)){
         $form = wfArray::set($form, "items/$field/is_valid", false);
-        $form = wfArray::set($form, "items/$field/errors/", $this->i18n->translateFromTheme('?label has more than ?decimals decimals!', array('?label' => wfArray::get($form, "items/$field/label"), '?decimals' => $data['decimals'])));
+        $form = wfArray::set($form, "items/$field/errors/", $this->i18n->translateFromTheme('?label has more than ?decimals decimals!', array('?label' => wfArray::get($form, "items/$field/label"), '?decimals' => $data->get('decimals'))));
+      }elseif(strlen($data->get('min')) && (double)wfArray::get($form, "items/$field/post_value") < $data->get('min')){
+        $form = wfArray::set($form, "items/$field/is_valid", false);
+        $form = wfArray::set($form, "items/$field/errors/", $this->i18n->translateFromTheme('?label can not be less then ?min!', array('?label' => wfArray::get($form, "items/$field/label"), '?min' => $data->get('min'))));
+      }elseif(strlen($data->get('max')) && (double)wfArray::get($form, "items/$field/post_value") > $data->get('max')){
+        $form = wfArray::set($form, "items/$field/is_valid", false);
+        $form = wfArray::set($form, "items/$field/errors/", $this->i18n->translateFromTheme('?label can not be greather then ?max!', array('?label' => wfArray::get($form, "items/$field/label"), '?max' => $data->get('max'))));
       }
     }
-    return $form;    
+    return $form;   
   }
   private function is_double($num, $data = array()){
     $num = str_replace(',', '.', $num);
@@ -47,7 +56,7 @@ class PluginValidateDouble{
 	  }
     }
   }
-  private function check_decimals($num, $data = array()){
+  private function check_decimals($num, $data){
     $num = str_replace(',', '.', $num);
     if(strstr($num, '.')){
       /**
@@ -55,8 +64,8 @@ class PluginValidateDouble{
        * Counting decimals.
        */
       $x = preg_split('/_dot_/', str_replace('.', '_dot_', $num));
-      if(strlen($x[1]) > $data['decimals']){
-        return false;
+      if(strlen($x[1]) > $data->get('decimals')){
+          return false;
       }else{
         return true;
       }

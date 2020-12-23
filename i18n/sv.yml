@@ -1,2 +1,4 @@
 ?label is not a double!: ?label är inte ett decimaltal!
 ?label has more than ?decimals decimals!: ?label har mer än ?decimals decimaler!
+?label can not be less then ?min!: ?label kan inte vara mindre än ?min!
+?label can not be greather then ?max!: ?label kan inte vara högre än ?max!
