@@ -13,4 +13,6 @@ item:
         method: validate_double
         data:
           decimals: 2
+          min: 2
+          max: 33
 ```
