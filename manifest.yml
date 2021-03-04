@@ -1,5 +1,9 @@
-version: 1.1.0
+version: 1.2.0
 history:
+  1.2.0:
+    date: '2021-03-04'
+    title: 'Method'
+    description: 'Made method is_double public.'
   1.1.0:
     date: '2020-12-23'
     title: 'Min/Max'

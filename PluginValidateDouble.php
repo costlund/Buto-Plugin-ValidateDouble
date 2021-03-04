@@ -27,7 +27,7 @@ class PluginValidateDouble{
     }
     return $form;   
   }
-  private function is_double($num, $data = array()){
+  public function is_double($num, $data = array()){
     $num = str_replace(',', '.', $num);
     if($num == '0'){
       return true;
