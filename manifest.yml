@@ -1,12 +1,16 @@
-version: 1.2.0
+version: 1.2.1
 history:
+  1.2.1:
+    date: '2022-09-08'
+    title: Versions
+    description: 'Versions update.'
   1.2.0:
     date: '2021-03-04'
-    title: 'Method'
+    title: Method
     description: 'Made method is_double public.'
   1.1.0:
     date: '2020-12-23'
-    title: 'Min/Max'
+    title: Min/Max
     description: 'Add min/max validation.'
   1.0.0:
     date: '2020-12-11'
@@ -15,7 +19,7 @@ history:
 plugin:
   -
     name: i18n/translate_v1
-    version: 1.7.0
+    version: 1.9.0
 sys:
   -
     name: mercury
